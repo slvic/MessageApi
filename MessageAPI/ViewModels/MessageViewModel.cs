@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MessageAPI.ViewModels
 {
+    /// <summary>
+    /// Модель сообщения для ответа на POST запрос.
+    /// </summary>
     public class MessageViewModel
     {
         public string Recipient { get; set; }

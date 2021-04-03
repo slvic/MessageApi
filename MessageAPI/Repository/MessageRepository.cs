@@ -2,15 +2,25 @@
 using MessageAPI.Models;
 using MessageAPI.Repository.DBCommands;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MessageAPI.Repository
 {
-    public class MessageRepository :BaseRepository, IRepository
+    /// <summary>
+    /// Предоставляет функционал для работы с СУБД.
+    /// </summary>
+    public class MessageRepository : BaseRepository, IRepository
     {
         private readonly ICommandText _commandText;
-        public MessageRepository(IConfiguration configuration, ICommandText commandText) : base(configuration)
+        /// <summary>
+        /// Получает параметры из конфигурационного файла для работы с СУБД.
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="commandText"></param>
+        public MessageRepository(IConfiguration configuration, ICommandText commandText) 
+            : base(configuration, new NpgsqlConnection(configuration["DBInfo:ConnectionString"]))
         {
             _commandText = commandText;
         }

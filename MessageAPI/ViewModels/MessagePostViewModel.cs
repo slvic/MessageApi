@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MessageAPI.ViewModels
 {
+    /// <summary>
+    /// Модель сообщения для POST запроса.
+    /// </summary>
     public class MessagePostViewModel
     {
         [Required]

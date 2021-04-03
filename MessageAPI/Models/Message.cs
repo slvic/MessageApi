@@ -2,6 +2,9 @@
 
 namespace MessageAPI.Models
 {
+    /// <summary>
+    /// Модель сообщения, которая будет храниться в БД.
+    /// </summary>
     public class Message
     {
         [Key]
