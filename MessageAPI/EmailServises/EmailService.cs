@@ -1,9 +1,7 @@
 ﻿using MailKit.Net.Smtp;
-using MessageAPI.Models;
 using MessageAPI.ViewModels;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MessageAPI.EmailServises

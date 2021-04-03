@@ -1,10 +1,8 @@
 ﻿using MessageAPI.EmailServises;
 using MessageAPI.Models;
+using MessageAPI.Repository;
 using MessageAPI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MessageAPI.Controllers
@@ -13,24 +11,25 @@ namespace MessageAPI.Controllers
     [ApiController]
     public class MessagesController : ControllerBase
     {
-        private readonly MessageContext _context;
+        //private readonly MessageContext _context;
+        private readonly IRepository _messageRepository;
         private readonly IEmailService _emailService;
 
-        public MessagesController(MessageContext context, IEmailService emailService)
+        public MessagesController(IRepository messageRepository, IEmailService emailService)
         {
-            _context = context;
+            _messageRepository = messageRepository;
             _emailService = emailService;
         }
 
         // GET: api/Messages
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Message>>> GetMessages()
+        public async Task<ActionResult<Message>> GetAllMessages()
         {
-            return await _context.Messages.ToListAsync();
+            var messages = await _messageRepository.GetAllAsync();
+            return Ok(messages);
         }
 
         // POST: api/Messages
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<MessageViewModel> PostMessage(MessagePostViewModel value)
         {
@@ -57,8 +56,7 @@ namespace MessageAPI.Controllers
                 Text = value.Text,
                 Success = success,
             };
-            _context.Messages.Add(msg);
-            await _context.SaveChangesAsync();
+            await _messageRepository.AddAsync(msg);
 
             return new MessageViewModel { 
                 Recipient = value.Recipient,

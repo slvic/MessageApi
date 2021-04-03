@@ -1,8 +1,8 @@
 using MessageAPI.EmailServises;
-using MessageAPI.Models;
+using MessageAPI.Repository;
+using MessageAPI.Repository.DBCommands;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,11 +21,12 @@ namespace MessageAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<ICommandText, CommandText>();
+            services.AddTransient<IRepository, MessageRepository>();
+            services.AddTransient<IEmailService, EmailService>();
             services.AddMvc();
 
-            services.AddTransient<IEmailService, EmailService>();
 
-            services.AddDbContext<MessageContext>(opt => opt.UseInMemoryDatabase("Message"));
             services.AddControllers();
         }
 

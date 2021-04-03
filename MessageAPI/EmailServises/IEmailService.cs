@@ -1,5 +1,4 @@
-﻿using MessageAPI.Models;
-using MessageAPI.ViewModels;
+﻿using MessageAPI.ViewModels;
 using System.Threading.Tasks;
 
 namespace MessageAPI.EmailServises
