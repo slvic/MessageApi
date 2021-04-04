@@ -1,5 +1,5 @@
 # Тестовое задание: веб сервис
 
-* ### ASP.NET Core 5
+* ### ASP.NET 5
 * ### Dapper
 * ### PostgreSQL
